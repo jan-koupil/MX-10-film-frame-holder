@@ -1,7 +1,8 @@
-$fn = 100;
+$fn = 500;
+
 eps = 0.05;
 
-//top
+//frameHolder
     diaLength = 50;
     diaThick = 3;
     extraSpace = 0.25;
@@ -11,11 +12,72 @@ eps = 0.05;
     midHeight = 4;    
 
 
-//joiner
-    joinerH = holderThick - extraSpace;
+//detectorBox
+    dbWidth = 61 + 2*extraSpace; //outer
+    dbMaxWidth = 66 + 2*extraSpace; //inner
+    dbThick = 26 + 2*extraSpace;
+    dbRadius = 35;
+    dbRoof = 1; //roof on top
+    dbHeight = 54 + dbRoof + 2 *holderThick;
 
 
-top();
+frameHolder();
+detectorBox();
+
+module detectorBox() {
+
+    translate([0, -dbThick / 2, dbHeight / 2]) {
+        union() {
+            difference() {
+
+                union() {
+                    translate([0,dbThick / 2 + holderThick / 2, 0])
+                        cube(size=[dbWidth, holderThick, dbHeight], center=true);
+
+                    translate([0, -dbThick / 2 - holderThick / 2, 0])
+                        cube(size=[dbWidth, holderThick, dbHeight], center=true);
+
+                    detectorSide();
+
+                    mirror([1, 0, 0]) {
+                        detectorSide();
+                    }
+
+                }
+
+                cube([dbWidth - 4 * holderThick, dbThick + 2 * holderThick + eps, dbHeight - 4 * holderThick ], center = true);
+            }
+
+            translate([-dbWidth / 4, 0, dbHeight / 2 - holderThick / 2]) {
+                cube(size=[2 * holderThick, dbThick + 2 * holderThick, holderThick], center=true);
+            }
+            translate([dbWidth / 4, 0, dbHeight / 2 - holderThick / 2]) {
+                cube(size=[2 * holderThick, dbThick + 2 * holderThick, holderThick], center=true);
+            }
+        }
+            
+    }
+
+}
+
+module detectorSide() {
+
+    translate([-dbRadius + dbMaxWidth / 2,0,0])
+    difference() {
+        cylinder(r=dbRadius + holderThick, h=dbHeight, center=true);
+
+        cylinder(r=dbRadius, h=dbHeight + eps, center=true);
+
+        translate([0, dbRadius + dbThick / 2 + holderThick, 0])
+            cube(size=[2* dbWidth, 2 * dbRadius, dbHeight + eps], center=true);
+
+        translate([0, -(dbRadius + dbThick / 2 + holderThick), 0])
+            cube(size=[2* dbWidth, 2 * dbRadius, dbHeight + eps], center=true);
+
+        translate([-dbWidth, 0, 0])
+            cube(size=[2* dbWidth, 2 * dbRadius, dbHeight + eps], center=true);
+    }
+}
 
 module slit() {
 
@@ -38,16 +100,16 @@ module slit() {
     }
 }
 
-module top() {
+module frameHolder() {
     
-    topWidth = diaThick +  holderThick;
+    frameHolderWidth = diaThick +  holderThick;
 
 
     union() {
-        translate([0, topWidth - holderThick + 2* extraSpace, 0])
+        translate([0, frameHolderWidth - holderThick + 2* extraSpace, 0])
             slit();
 
-        translate([0, 2* topWidth - holderThick + 2* extraSpace, 0])
+        translate([0, 2* frameHolderWidth - holderThick + 2* extraSpace, 0])
             slit();
     }
 
