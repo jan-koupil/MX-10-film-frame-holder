@@ -1,3 +1,0 @@
-include <geometry.scad>
-
-leg();
