@@ -4,9 +4,9 @@ eps = 0.05;
 //top
     diaLength = 50;
     diaThick = 3;
-    extraSpace = 0.5;
+    extraSpace = 0.25;
 
-    holderThick = 3;
+    holderThick = 2;
     sideHeight = 25;
     midHeight = 4;    
 
@@ -40,14 +40,14 @@ module slit() {
 
 module top() {
     
-    topWidth = diaThick + 2 * holderThick;
+    topWidth = diaThick +  holderThick;
 
 
     union() {
-        translate([0, topWidth / 2, 0])
+        translate([0, topWidth - holderThick + 2* extraSpace, 0])
             slit();
 
-        translate([0, -topWidth / 2, 0])
+        translate([0, 2* topWidth - holderThick + 2* extraSpace, 0])
             slit();
     }
 
