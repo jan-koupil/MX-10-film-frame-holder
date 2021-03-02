@@ -8,7 +8,7 @@ eps = 0.05;
 
     holderThick = 3;
     sideHeight = 25;
-    midHeight = 4;    
+    midHeight = 4 ;    
 
 
 //joiner
