@@ -13,9 +13,9 @@ eps = 0.05;
 
 
 //detectorBox
-    dbWidth = 61 + 2*extraSpace; //outer
-    dbMaxWidth = 66 + 2*extraSpace; //inner
-    dbThick = 26 + 2*extraSpace;
+    dbWidth = 61 + 4*extraSpace; //outer
+    dbMaxWidth = 66 + 4*extraSpace; //inner
+    dbThick = 26 + 4*extraSpace;
     dbRadius = 35;
     dbRoof = 1; //roof on top
     dbHeight = 54 + dbRoof + 2 *holderThick;
